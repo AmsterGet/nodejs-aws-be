@@ -1,4 +1,6 @@
-export interface IApiResponse {
+import { ProxyResult } from 'aws-lambda';
+
+export interface IApiResponse extends ProxyResult {
     headers: {
         'Content-Type': string;
         'Access-Control-Allow-Methods': string;
