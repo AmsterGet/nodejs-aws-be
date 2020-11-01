@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["es2017"],
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "lib": ["es2018"],
     "removeComments": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -10,6 +12,8 @@
     "declaration": false,
     "declarationMap": false,
     "sourceMap": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "target": "es2017",
     "outDir": "lib"
   },
