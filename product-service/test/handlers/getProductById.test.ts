@@ -3,7 +3,7 @@ import { OK, INTERNAL_SERVER_ERROR, NOT_FOUND } from 'http-status-codes';
 import { getProductById } from '../../src/handlers';
 import * as getProductsService from '../../src/services/getProducts';
 import { mockProducts } from '../mocks';
-import { ERROR_MESSAGES } from '../../src/constants';
+import { ErrorMessages } from '../../src/constants';
 
 describe('getProductsById handler', () => {
     test('should return right product with corresponding id', async () => {
@@ -29,7 +29,7 @@ describe('getProductsById handler', () => {
         ) as APIGatewayProxyResult;
 
         expect(data.statusCode).toBe(NOT_FOUND);
-        expect(data.body).toEqual(JSON.stringify({ message: ERROR_MESSAGES.NOT_FOUND }));
+        expect(data.body).toEqual(JSON.stringify({ message: ErrorMessages.NOT_FOUND }));
     });
 
     test('should return response with INTERNAL_SERVER_ERROR code in case of error during execution', async () => {
