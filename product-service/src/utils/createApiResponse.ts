@@ -1,7 +1,7 @@
+import { APIGatewayProxyResult } from 'aws-lambda';
 import { headers } from '../constants';
-import { IApiResponse, } from '../types';
 
-export const createApiResponse = (body, statusCode: number): IApiResponse => ({
+export const createApiResponse = (body, statusCode: number): APIGatewayProxyResult => ({
     headers,
     statusCode,
     body: JSON.stringify(body),

@@ -1,9 +1,8 @@
-import { APIGatewayProxyEvent, Context } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { OK, INTERNAL_SERVER_ERROR, NOT_FOUND } from 'http-status-codes';
 import { getProductById } from '../../src/handlers';
 import * as getProductsService from '../../src/services/getProducts';
 import { mockProducts } from '../mocks';
-import { IApiResponse } from '../../src/types';
 import { ERROR_MESSAGES } from '../../src/constants';
 
 describe('getProductsById handler', () => {
@@ -14,7 +13,7 @@ describe('getProductsById handler', () => {
             { pathParameters: { productId: mockProducts[0].id } } as unknown as APIGatewayProxyEvent,
             {} as Context,
             null,
-        ) as IApiResponse;
+        ) as APIGatewayProxyResult;
 
         expect(data.statusCode).toBe(OK);
         expect(data.body).toEqual(JSON.stringify(mockProducts[0]));
@@ -27,7 +26,7 @@ describe('getProductsById handler', () => {
             { pathParameters: { productId: 'blaId' } } as unknown as APIGatewayProxyEvent,
             {} as Context,
             null,
-        ) as IApiResponse;
+        ) as APIGatewayProxyResult;
 
         expect(data.statusCode).toBe(NOT_FOUND);
         expect(data.body).toEqual(JSON.stringify({ message: ERROR_MESSAGES.NOT_FOUND }));
@@ -43,7 +42,7 @@ describe('getProductsById handler', () => {
             { pathParameters: { productId: mockProducts[0].id } } as unknown as APIGatewayProxyEvent,
             {} as Context,
             null,
-        ) as IApiResponse;
+        ) as APIGatewayProxyResult;
 
         expect(data.statusCode).toBe(INTERNAL_SERVER_ERROR);
         expect(data.body).toEqual(JSON.stringify({ message: error }));

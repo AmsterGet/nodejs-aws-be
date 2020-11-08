@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
+    "paths": { "*": ["models/*"] },
     "lib": ["es2018"],
     "removeComments": true,
     "moduleResolution": "node",

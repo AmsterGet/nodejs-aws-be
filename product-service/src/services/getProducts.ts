@@ -1,12 +1,13 @@
 import { Client } from 'pg';
 import { DB_CONFIG } from '../configs';
+import { Product } from '../models';
 
-export const getProducts = async () => {
+export const getProducts = async (): Promise<Product[]> => {
   console.log('Connecting to DB...');
   const client = new Client(DB_CONFIG);
   await client.connect();
   console.log('Successfully connected to DB!');
-  let products;
+  let products: Product[];
 
   try {
     console.log('Execute query on DB to get products..');
