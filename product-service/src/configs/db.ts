@@ -9,5 +9,5 @@ export const DB_CONFIG = {
     ssl: {
         rejectUnauthorized: false,
     },
-    connectionTimeoutMillis: 5000,
+    connectionTimeoutMillis: 5000, // time in millisecond for termination of the database query
 };
