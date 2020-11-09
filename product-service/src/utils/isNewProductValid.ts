@@ -6,11 +6,10 @@ export function isNewProductValid({
   price,
   count,
 }: Product): boolean {
-
     return (
-        !!title && typeof title === 'string' ||
-        !!description && typeof description === 'string' ||
-        !!price && typeof price === 'number' ||
+        !!title && typeof title === 'string' &&
+        !!description && typeof description === 'string' &&
+        !!price && typeof price === 'number' &&
         !!count && typeof count === 'number'
     );
 }

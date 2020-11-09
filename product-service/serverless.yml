@@ -5,6 +5,12 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-west-1
+  environment:
+    DB_HOST:
+    DB_PORT:
+    DB_DATABASE:
+    DB_USERNAME:
+    DB_PASSWORD:
 
 plugins:
   - serverless-webpack
@@ -13,13 +19,6 @@ custom:
   webpack:
     webpackConfig: 'webpack.config.js'
     includeModules: true
-
-environment:
-  DB_HOST:
-  DB_PORT:
-  DB_DATABASE:
-  DB_USERNAME: postgres
-  DB_PASSWORD:
 
 functions:
   getProductList:
@@ -41,6 +40,7 @@ functions:
             parameters:
               paths:
                 productId: true
+
   createNewProduct:
     handler: src/handler.createProduct
     events:

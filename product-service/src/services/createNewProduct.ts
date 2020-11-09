@@ -2,8 +2,8 @@ import { Client } from 'pg';
 import { Product } from '../models';
 import { DB_CONFIG } from '../configs';
 
-const newProductQueryString = 'INSERT INTO products(title, description, price) VALUES ($title, $description, $price) RETURNING id';
-const newStockQueryString = 'INSERT INTO stocks(product_id, count) VALUES ($productId, $count)';
+const newProductQueryString = 'INSERT INTO products(title, description, price) VALUES ($1, $2, $3) RETURNING id';
+const newStockQueryString = 'INSERT INTO stocks(product_id, count) VALUES ($1, $2)';
 
 export const createNewProduct = async ({ title, description, price, count }: Omit<Product, 'id'>): Promise<string> => {
     console.log('Connecting to DB...');
