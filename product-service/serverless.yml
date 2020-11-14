@@ -5,6 +5,12 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-west-1
+  environment:
+    DB_HOST:
+    DB_PORT:
+    DB_DATABASE:
+    DB_USERNAME:
+    DB_PASSWORD:
 
 plugins:
   - serverless-webpack
@@ -34,3 +40,11 @@ functions:
             parameters:
               paths:
                 productId: true
+
+  createNewProduct:
+    handler: src/handler.createProduct
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true

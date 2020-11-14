@@ -1,15 +1,14 @@
-import { APIGatewayProxyEvent, Context } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { OK, INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import { getProductList } from '../../src/handlers';
 import * as getProductsService from '../../src/services/getProducts';
 import { mockProducts } from '../mocks';
-import { IApiResponse } from '../../src/types';
 
 describe('getProductList handler', () => {
     test('should return all products', async () => {
         jest.spyOn(getProductsService, 'getProducts').mockImplementationOnce(async () => mockProducts);
 
-        const data = await getProductList({} as APIGatewayProxyEvent, {} as Context, null) as IApiResponse;
+        const data = await getProductList({} as APIGatewayProxyEvent, {} as Context, null) as APIGatewayProxyResult;
 
         expect(data.statusCode).toBe(OK);
         expect(data.body).toEqual(JSON.stringify(mockProducts));
@@ -21,7 +20,7 @@ describe('getProductList handler', () => {
             throw error;
         });
 
-        const data = await getProductList({} as APIGatewayProxyEvent, {} as Context, null) as IApiResponse;
+        const data = await getProductList({} as APIGatewayProxyEvent, {} as Context, null) as APIGatewayProxyResult;
 
         expect(data.statusCode).toBe(INTERNAL_SERVER_ERROR);
         expect(data.body).toEqual(JSON.stringify({ message: error }));
