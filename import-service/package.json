@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "csv-parser": "^2.3.3",
     "http-status-codes": "^2.1.4"
   },
   "devDependencies": {

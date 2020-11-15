@@ -5,6 +5,9 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-west-1
+  environment:
+    BUCKET: recycle-buckets-shop-files
+    REGION: ${self:provider.region}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -35,3 +38,13 @@ functions:
             parameters:
               querystrings:
                 name: true
+
+  importFileParser:
+    handler: src/handler.importFileParser
+    events:
+      - s3:
+          bucket: recycle-buckets-shop-files
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true

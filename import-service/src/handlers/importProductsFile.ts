@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandler, APIGatewayProxyEvent, ProxyResult } from 'aws-lambda';
 import { S3 } from 'aws-sdk';
 import { OK, INTERNAL_SERVER_ERROR } from 'http-status-codes';
-import { BUCKET, ALLOWED_FILE_CONTENT_TYPE } from '../constants';
+import { BUCKET, REGION, ALLOWED_FILE_CONTENT_TYPE, UPLOADED_FILES_DIR } from '../constants';
 import { createApiResponse } from '../utils';
 
 export const importProductsFile: APIGatewayProxyHandler = async (
@@ -11,8 +11,9 @@ export const importProductsFile: APIGatewayProxyHandler = async (
 
     try {
         const { name } = event.queryStringParameters;
-        const path = `uploaded/${name}`;
-        const s3 = new S3({ region: 'eu-west-1' });
+        const path = `${UPLOADED_FILES_DIR}/${name}`;
+        const s3 = new S3({ region: REGION });
+        console.log('Using bucket: ', BUCKET);
         const params = {
             Bucket: BUCKET,
             Key: path,
@@ -20,7 +21,7 @@ export const importProductsFile: APIGatewayProxyHandler = async (
             ContentType: ALLOWED_FILE_CONTENT_TYPE,
         };
 
-        console.log('Getting signet URL from S3...');
+        console.log('Getting signet URL from S3..');
 
         const signedUrl = await s3.getSignedUrlPromise('putObject', params);
         console.log('URL for upload received: ', signedUrl);
