@@ -1,9 +1,8 @@
 import { APIGatewayProxyHandler, APIGatewayProxyEvent, ProxyResult } from 'aws-lambda';
+import { S3 } from 'aws-sdk';
 import { OK, INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import { BUCKET, ALLOWED_FILE_CONTENT_TYPE } from '../constants';
 import { createApiResponse } from '../utils';
-
-import { S3 } from 'aws-sdk';
 
 export const importProductsFile: APIGatewayProxyHandler = async (
     event: APIGatewayProxyEvent,
