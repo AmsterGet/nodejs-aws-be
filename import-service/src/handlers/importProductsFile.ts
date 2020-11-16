@@ -1,4 +1,4 @@
-import { APIGatewayProxyHandler, APIGatewayProxyEvent, ProxyResult } from 'aws-lambda';
+import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { S3 } from 'aws-sdk';
 import { OK, INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import { BUCKET, REGION, ALLOWED_FILE_CONTENT_TYPE, UPLOADED_FILES_DIR } from '../constants';
@@ -6,7 +6,7 @@ import { createApiResponse } from '../utils';
 
 export const importProductsFile: APIGatewayProxyHandler = async (
     event: APIGatewayProxyEvent,
-): Promise<ProxyResult> => {
+): Promise<APIGatewayProxyResult> => {
     console.log('Lambda invocation with event: ', event);
 
     try {
