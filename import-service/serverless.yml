@@ -1,0 +1,50 @@
+service: import-service
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-1
+  environment:
+    BUCKET: recycle-buckets-shop-files
+    REGION: ${self:provider.region}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+      Resource: "arn:aws:s3:::recycle-buckets-shop-files"
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "arn:aws:s3:::recycle-buckets-shop-files/*"
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+
+functions:
+  importProductsFile:
+    handler: src/handler.importProductsFile
+    events:
+      - http:
+          path: import
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
+
+  importFileParser:
+    handler: src/handler.importFileParser
+    events:
+      - s3:
+          bucket: recycle-buckets-shop-files
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true
