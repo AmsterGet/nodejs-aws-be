@@ -1,4 +1,4 @@
 # nodejs-aws-be
 BE services for nodejs-aws course
 
-TODO: Clenup all services. Update tests
+TODO: Cleanup all services. Update tests
